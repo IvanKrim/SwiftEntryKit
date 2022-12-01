@@ -137,8 +137,8 @@ final class EKWindowProvider: EntryPresenterDelegate, EntryViewDelegate {
     /** Display a view using attributes */
     func display(view: UIView, using attributes: EKAttributes, presentInsideKeyWindow: Bool, rollbackWindow: SwiftEntryKit.RollbackWindow) {
         let entryView = EKEntryView(newEntry: .init(view: view, attributes: attributes), delegate: self)
+        entryView.tag = attributes.id ?? 0
         
-        entryView.tag = Int(attributes.name ?? "") ?? 0
         display(entryView: entryView, using: attributes, presentInsideKeyWindow: presentInsideKeyWindow, rollbackWindow: rollbackWindow)
     }
     
