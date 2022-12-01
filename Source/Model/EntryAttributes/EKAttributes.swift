@@ -19,6 +19,7 @@ public struct EKAttributes {
      */
     public var name: String?
     
+    public var id: Int? = nil
     // MARK: Display Attributes
     
     /** Entry presentation window level */

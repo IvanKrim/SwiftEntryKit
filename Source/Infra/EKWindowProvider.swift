@@ -137,9 +137,11 @@ final class EKWindowProvider: EntryPresenterDelegate, EntryViewDelegate {
     /** Display a view using attributes */
     func display(view: UIView, using attributes: EKAttributes, presentInsideKeyWindow: Bool, rollbackWindow: SwiftEntryKit.RollbackWindow) {
         let entryView = EKEntryView(newEntry: .init(view: view, attributes: attributes), delegate: self)
+        
+        entryView.tag = Int(attributes.name ?? "") ?? 0
         display(entryView: entryView, using: attributes, presentInsideKeyWindow: presentInsideKeyWindow, rollbackWindow: rollbackWindow)
     }
-
+    
     /** Display a view controller using attributes */
     func display(viewController: UIViewController, using attributes: EKAttributes, presentInsideKeyWindow: Bool, rollbackWindow: SwiftEntryKit.RollbackWindow) {
         let entryView = EKEntryView(newEntry: .init(viewController: viewController, attributes: attributes), delegate: self)
@@ -207,6 +209,14 @@ final class EKWindowProvider: EntryPresenterDelegate, EntryViewDelegate {
             entryQueue.removeAll()
             rootVC.animateOutLastEntry(completionHandler: completion)
         }
+    }
+    
+    func dismiss(by id: Int, with completion: SwiftEntryKit.DismissCompletionHandler? = nil) {
+        guard let rootVC = rootVC else {
+            return
+        }
+
+        rootVC.animateOutEntry(by: id, completionHandler: completion)
     }
     
     /** Layout the view-hierarchy rooted in the window */

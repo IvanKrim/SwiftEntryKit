@@ -140,7 +140,7 @@ class EKRootViewController: UIViewController {
         let previousAttributes = lastAttributes
         
         // Remove the last entry
-        removeLastEntry(lastAttributes: previousAttributes, keepWindow: true)
+        // removeLastEntry(lastAttributes: previousAttributes, keepWindow: true)
         
         lastAttributes = attributes
         
@@ -190,6 +190,12 @@ class EKRootViewController: UIViewController {
         lastEntry?.animateOut(pushOut: false)
     }
     
+    func animateOutEntry(by id: Int, completionHandler: SwiftEntryKit.DismissCompletionHandler? = nil) {
+        guard let entry = self.view.viewWithTag(id)?.superview as? EKContentView else { return }
+        entry.dismissHandler = completionHandler
+        entry.animateOut(pushOut: false)
+    }
+
     // Pops last entry (using pop animation) - animatedly
     func popLastEntry() {
         lastEntry?.animateOut(pushOut: true)
