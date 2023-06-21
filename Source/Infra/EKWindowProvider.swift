@@ -59,7 +59,8 @@ final class EKWindowProvider: EntryPresenterDelegate, EntryViewDelegate {
         guard entryVC.canDisplay(attributes: attributes) || attributes.precedence.isEnqueue else {
             return nil
         }
-        entryVC.setStatusBarStyle(for: attributes)
+//        entryVC.setStatusBarStyle(for: attributes)
+        entryVC.currentTheme = attributes.displayMode
 
         entryWindow.windowLevel = attributes.windowLevel.value
         if presentInsideKeyWindow {
